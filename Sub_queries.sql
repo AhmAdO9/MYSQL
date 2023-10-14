@@ -73,7 +73,7 @@
 -- ANY KEYWORD
 
 
-USE sql_invoicing;
+-- USE sql_invoicing;
 
 -- SELECT *
 -- FROM invoices
@@ -83,9 +83,106 @@ USE sql_invoicing;
 --             WHERE client_id = 3
 --             );
             
-SELECT client_id, payment_total, count(*)
-FROM invoices 
-GROUP BY client_id, payment_total
+-- SELECT *
+-- FROM clients
+-- WHERE client_id = ANY (
+-- 				SELECT client_id
+--                 FROM invoices
+--                 GROUP BY client_id 
+--                 HAVING COUNT(*) >= 2
+--                 )
+
+
+-- CORRELATED SUBQUERIES; works just like a nested for-Loop, that is, kinda' slowIsh
+
+
+-- USE sql_hr;
+
+-- SELECT *
+-- FROM employees e
+-- WHERE salary > (
+-- 			SELECT AVG(salary)
+--             FROM employees
+--             WHERE office_id = e.office_id
+--             )
+
+-- THE EXISTS OPERATOR
+
+USE sql_invoicing;
+
+-- SELECT *
+-- FROM clients
+-- WHERE client_id IN 
+-- 		(	
+--         SELECT client_id
+--         FROM invoices
+-- 		)
+
+-- SELECT *
+-- FROM clients c
+-- WHERE EXISTS (
+-- 	SELECT client_id
+--     FROM invoices
+--     WHERE client_id = c.client_id
+--     )
+
+
+-- SUBQUIRIES IN THE SELECT CLAUSE
+
+-- SELECT 
+-- 	invoice_id,
+--     invoice_total,
+--     (SELECT AVG(invoice_total)
+--     FROM invoices) AS invoice_average,
+-- 	invoice_total - (SELECT invoice_average) AS difference
+-- FROM invoices
+
+
+-- SELECT 
+-- 		name,
+-- 		(
+-- 		SELECT SUM(invoice_total)
+--         FROM invoices
+--         WHERE client_id = c.client_id
+--         ) AS total_sales,
+--         (
+-- 		SELECT AVG(invoice_total)
+--         FROM invoices
+--         ) AS average,
+--         (SELECT total_sales)-(SELECT average) AS difference
+--         
+-- FROM clients c  
+-- HAVING total_sales IS NOT NULL    
+
+
+-- SUBQUERIES IN THE FROM CLAUSE
+
+
+SELECT 
+		name,
+		(
+		SELECT SUM(invoice_total)
+        FROM invoices
+        WHERE client_id = c.client_id
+        ) AS total_sales,
+        (
+		SELECT AVG(invoice_total)
+        FROM invoices
+        ) AS average,
+        (SELECT total_sales)-(SELECT average) AS difference
+        
+FROM clients c  
+HAVING total_sales IS NOT NULL  
+
+
+
+
+
+
+
+
+
+
 
 
 
