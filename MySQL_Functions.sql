@@ -81,11 +81,41 @@
  
  -- FORMATTING DATES AND TIME
  
+ -- SELECT DATE_FORMAT(NOW(), '%d %M %Y' ) 
+ 
+ -- SELECT DATE_FORMAT(NOW(), '%h:%i %p' )
  
  
+ -- CALCULATING DATES AND TIMES
  
+-- SELECT DATE_ADD(NOW(), INTERVAL 1 YEAR)
  
+-- DATE_DIFFERENCE
  
+-- SELECT DATEDIFF('2019-01-01', '2019-02-01')
+
+ -- TIME_TO_SEC
+-- seconds passed from midnight
+ -- SELECT TIME_TO_SEC('12:00')
+ 
+
+-- IFNULL AND COALESCE FUNCTIONS
+
+
+USE sql_store;
+
+-- select 
+-- 	order_id,
+--     ifnull(shipper_id, 'Not assigned') AS shippr
+-- from orders
+
+-- select 
+-- 	order_id,
+--     coalesce(shipper_id, comments,order_id, 'Not assigned') AS shipper
+-- from orders 
+
+
+-- IF FUCNTION
  
  
  
