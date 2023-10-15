@@ -126,7 +126,16 @@ USE sql_store;
 
 -- CASE OPERATOR
 
-
+select 
+	order_id, 
+    case
+		when year(order_date) = 2019 then 2019
+        when year(order_date) = 2018 then 2018
+        when year(order_date) = 2017 then 2017
+        else 'nothing'
+	end as category
+        
+from orders
 
 
 
