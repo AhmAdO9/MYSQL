@@ -117,8 +117,32 @@ USE sql_store;
 
 -- IF FUCNTION
  
- 
- 
+-- select 
+-- 	order_id,
+--     order_date,
+--     if(year(order_date) = year(now()), 'active', 'archived') as category
+-- from orders
+
+
+-- CASE OPERATOR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
  
  
